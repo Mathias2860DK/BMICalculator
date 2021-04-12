@@ -14,13 +14,38 @@
 
     <jsp:body>
 
-        <div>
-            <h2>Our Cool Site</h2>
+        <div class="row">
+            <div class="col-sm-4"></div>
+            <div class="col-sm-4">
 
-            <div style="margin-top: 3em;margin-bottom: 3em;">
-                Main page for this 2. semester start project used at cphbusiness.dk
+            <h2>BMI beregner</h2>
+
+            <form method="post" action="${pageContext.request.contextPath}/fc/bmiresult">
+                <div class="form-group">
+
+                <label for="height">Højde i cm:</label>
+                <input id="height" name="height" type="text" class="form-control">
+                </div>
+
+                <div class="form-group">
+                <label for="weight">Vægt i kg: :</label>
+                <input id="weight" name="weight" type="text" class="form-control">
+                </div>
+
+
+                <button type="submit" class="btn btn-primary">Bergn BMI:</button>
+
+                <c:if test="${requestScope.error != null}">
+                    <p style="color: red">${requestScope.error}</p>
+                </c:if>
+
+
+                <div class="col-sm-4"></div>
+            </form>
             </div>
 
+
+<div>
             <c:if test="${sessionScope.role == 'employee' }">
                 <p style="font-size: larger">This is what you can do,
                     since your are logged in as an employee</p>
@@ -33,7 +58,7 @@
                 <p><a href="fc/customerpage">Customer Page</a>
             </c:if>
 
-        </div>
+</div>
 
     </jsp:body>
 </t:genericpage>
