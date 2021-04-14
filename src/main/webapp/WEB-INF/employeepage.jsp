@@ -10,7 +10,9 @@
     </jsp:attribute>
     <jsp:body>
         <h1>Hello ${sessionScope.email} </h1>
-        You are now logged in as a EMPLOYEE of our wonderful site.
+        <p>You are now logged in as a EMPLOYEE of our wonderful BMI site.</p>
+
+        <p><a href="${pageContext.request.contextPath}/fc/bmientries">Gå til visning af alle BMI resultater</a></p>
 
     </jsp:body>
 </t:genericpage>
