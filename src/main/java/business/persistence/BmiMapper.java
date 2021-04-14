@@ -1,6 +1,7 @@
 package business.persistence;
 
 import business.entities.BmiEntry;
+import business.entities.Sport;
 import business.entities.User;
 import business.exceptions.UserException;
 
@@ -180,5 +181,123 @@ bmiEntryList.add(bmiEntry);
         }
     }
 
+    public int deleteSport(int sportId) throws UserException{
+        try (Connection connection = database.connect())
+        {
+            //Virker ikke pga man ikke kan slette et sport_id de bliver brugt i BMI entry tablen.
+            // String sql = "DELETE FROM `bmi`.`sport` WHERE sport_id = ?;";
+
+            String sql = "DELETE FROM bmi.sport" +
+                    " WHERE sport_id = ? and sport_id NOT IN " +
+                    " (SELECT sport_id FROM bmi_entry);";
+
+            try (PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS))
+            {
+                ps.setInt(1,sportId);
+
+                int rowsAffected = ps.executeUpdate();
+                return rowsAffected;
+
+            }
+            catch (SQLException ex)
+            {
+                throw new UserException(ex.getMessage());
+            }
+        }
+        catch (SQLException ex)
+        {
+            throw new UserException(ex.getMessage());
+        }
+    }
+
+    public List<Sport> getAllSports() throws UserException {
+        List<Sport> sportList = new ArrayList<>();
+        try (Connection connection = database.connect())
+        {
+            String sql = "SELECT * FROM bmi.sport;";
+
+            try (PreparedStatement ps = connection.prepareStatement(sql))
+            {
+                ResultSet rs = ps.executeQuery();
+                while (rs.next())
+                {
+                    int id = rs.getInt("sport_id");
+                    String name = rs.getString("name");
+
+
+
+
+                    sportList.add(new Sport(id,name));
+
+
+                }
+                return sportList;
+            }
+            catch (SQLException ex)
+            {
+                throw new UserException(ex.getMessage());
+            }
+        }
+        catch (SQLException ex)
+        {
+            throw new UserException("Connection to database could not be established");
+        }
+    }
+
+
+    public Sport getSportById(int sportId) throws UserException {
+
+        try (Connection connection = database.connect())
+        {
+            String sql = "SELECT * FROM bmi.sport WHERE sport_id = ?;";
+
+            try (PreparedStatement ps = connection.prepareStatement(sql))
+            {
+                ps.setInt(1,sportId);
+                ResultSet rs = ps.executeQuery();
+                if (rs.next())
+                {
+                    int newId = rs.getInt("sport_id");
+                    String name = rs.getString("name");
+
+                    return new Sport(newId,name);
+                }
+                throw new UserException("Sportsgren finder ikke for sport id = " +  sportId);
+
+            }
+            catch (SQLException ex)
+            {
+                throw new UserException(ex.getMessage());
+            }
+        }
+        catch (SQLException ex)
+        {
+            throw new UserException("Connection to database could not be established");
+        }
+    }
+    public int updateSport(int sportId, String name) throws UserException {
+
+        try (Connection connection = database.connect())
+        {
+            String sql = "UPDATE sport SET name = ? WHERE sport_id = ?;";
+
+            try (PreparedStatement ps = connection.prepareStatement(sql))
+            {
+                ps.setString(1,name);
+                ps.setInt(2,sportId);
+
+                int rowsInserted = ps.executeUpdate();
+                return rowsInserted;
+            }
+            catch (SQLException ex)
+            {
+                throw new UserException(ex.getMessage());
+            }
+        }
+        catch (SQLException ex)
+        {
+            throw new UserException("Connection to database could not be established");
+        }
+    }
     }
 
