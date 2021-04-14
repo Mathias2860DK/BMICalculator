@@ -16,18 +16,27 @@
 
         <div>
 
-        <div class="row">
-        <div class="col-sm-4"></div>
-        <div class="col-sm-4">
-            <h2>BMI resultat</h2>
+            <div class="row">
+                <div class="col-sm-4"></div>
+                <div class="col-sm-4">
+                    <h2>BMI resultat</h2>
 
-<p>Din højde er ${requestScope.height}</p>
-<p>Din vægt er ${requestScope.weight}</p>
-            <p>Dit BMI er beregnet til: ${requestScope.bmi}</p>
-<p>Du er ${requestScope.category}</p>
-        </div>
-            <div class="col-sm-4"></div>
-        </div>
+                    <p>Din højde er ${requestScope.height}</p>
+                    <p>Din vægt er ${requestScope.weight}</p>
+                    <p>Dit BMI er beregnet til: ${requestScope.bmi}</p>
+                    <p>Du er ${requestScope.category}</p>
+
+                <p>Køn: ${requestScope.gender}</p>
+                <p>Sports_id: ${requestScope.sport_id}</p>
+
+                <c:forEach var="hobbyItem" items="${requestScope.hobbies}">
+                    hobby: ${hobbyItem}<br>
+                </c:forEach>
+
+                </div>
+
+                <div class="col-sm-4"></div>
+            </div>
         </div>
 
     </jsp:body>

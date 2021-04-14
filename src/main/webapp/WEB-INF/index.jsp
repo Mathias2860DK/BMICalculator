@@ -32,6 +32,28 @@
                 <input id="weight" name="weight" type="text" class="form-control">
                 </div>
 
+                <input type="radio" id="male" name="gender" value="male">
+                <label for="male">Male</label><br>
+                <input type="radio" id="female" name="gender" value="female">
+                <label for="female">Female</label><br>
+
+                <label for="sport">Din primære idræt:</label>
+                <select name="sport" id="sport">
+                    <option>Vælg en sport</option>
+                    <option value="1">Fodbold</option>
+                    <option value="2">Gymnastik</option>
+                    <option value="3">Yoga</option>
+                    <option value="4">Badminton</option>
+                </select>
+                <br><br>
+
+                <input type="checkbox" id="hobby1" name="hobby" value="1">
+                <label for="vehicle1"> Jeg går op i sund kost</label><br>
+                <input type="checkbox" id="hobby2" name="hobby" value="2">
+                <label for="vehicle2"> Jeg har et sommerhus</label><br>
+                <input type="checkbox" id="hobby3" name="hobby" value="3">
+                <label for="vehicle3"> Jeg har et kæledyr</label><br>
+
 
                 <button type="submit" class="btn btn-primary">Bergn BMI:</button>
 
