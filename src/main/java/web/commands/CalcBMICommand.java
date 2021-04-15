@@ -44,8 +44,12 @@ public class CalcBMICommand extends CommandUnprotectedPage {
         String[] hobbies = request.getParameterValues("hobby");
         List<String> hobbyListStrings = null;
 
+
         if (hobbies != null){
             hobbyListStrings = Arrays.asList(hobbies);
+        } else {
+            request.setAttribute("error","Ingen hobby er valgt.");
+            return "index";
         }
 
         List<Integer> hobbyListIntegers = new ArrayList<>();
